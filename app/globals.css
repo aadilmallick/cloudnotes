@@ -12,15 +12,36 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-gradient-bg {
+  background: radial-gradient(
+      at 89.11743079123833% 54.930927487134596%,
+      rgb(206, 242, 240) 0%,
+      hsla(88, 58%, 88%, 0) 100%
+    ),
+    radial-gradient(
+      at 39.67465128564158% 52.14919131184421%,
+      hsla(247.17391304347828, 100%, 81.96078431372548%, 1) 0%,
+      hsla(247.17391304347828, 100%, 81.96078431372548%, 0) 100%
+    ),
+    radial-gradient(
+      at 77.26159382523423% 98.49030508506105%,
+      rgb(108, 129, 114) 0%,
+      hsla(135, 32%, 38%, 0) 100%
+    ),
+    radial-gradient(
+      at 66.18238879868419% 2.5909601133221605%,
+      rgb(88, 216, 238) 0%,
+      hsla(101, 23%, 49%, 0) 100%
+    ),
+    radial-gradient(
+      at 20.33683948492544% 28.90127237409501%,
+      hsla(247.17391304347828, 100%, 81.96078431372548%, 1) 0%,
+      hsla(247.17391304347828, 100%, 81.96078431372548%, 0) 100%
+    );
 }
