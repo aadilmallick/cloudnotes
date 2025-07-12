@@ -122,7 +122,11 @@ export async function registerUserAction(formData: FormData) {
       password,
     });
     const cookieStore = await cookies();
-    cookieStore.set(JWT_COOKIE_NAME, res.token);
+    cookieStore.set(JWT_COOKIE_NAME, res.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
   } catch (e) {
     console.error(e);
     redirect(
@@ -162,7 +166,11 @@ export async function signInAction(formData: FormData) {
       password,
     });
     const cookieStore = await cookies();
-    cookieStore.set(JWT_COOKIE_NAME, res.token);
+    cookieStore.set(JWT_COOKIE_NAME, res.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
   } catch (e) {
     console.error(e);
     // return {

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { SubmitButton } from "../Buttons";
 import { signInAction } from "@/actions/actions";
+import GithubButton from "./GithubButton";
+import GoogleButton from "./GoogleButton";
 
 const SigninForm = () => {
   return (
@@ -47,7 +49,9 @@ const SigninForm = () => {
         className="mt-12 bg-blue-500 rounded-full px-6 py-3 text-base cursor-pointer hover:opacity-75 transition-opacity text-white font-semibold w-full disabled:opacity-50 disabled:cursor-not-allowed"
       />
 
-      <div className="text-center">
+      <OAuthButtons />
+
+      <div className="text-center mt-6">
         <p>
           Don't have an account?{" "}
           <Link
@@ -61,5 +65,23 @@ const SigninForm = () => {
     </form>
   );
 };
+
+export function OAuthButtons() {
+  return (
+    <>
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-2 text-gray-500 bg-white">Or continue with</span>
+        </div>
+      </div>
+
+      <GithubButton />
+      <GoogleButton />
+    </>
+  );
+}
 
 export default SigninForm;

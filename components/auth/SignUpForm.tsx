@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SubmitButton } from "../Buttons";
 import { registerUserAction } from "@/actions/actions";
+import { OAuthButtons } from "./SignInForm";
 
 const SignupForm = () => {
   return (
@@ -46,6 +47,8 @@ const SignupForm = () => {
         label="Sign Up"
         className="mt-12 bg-blue-500 rounded-full px-6 py-3 text-base cursor-pointer hover:opacity-75 transition-opacity text-white font-semibold w-full disabled:opacity-50 disabled:cursor-not-allowed"
       />
+
+      <OAuthButtons />
 
       <div className="text-center">
         <p>

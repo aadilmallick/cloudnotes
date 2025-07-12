@@ -21,6 +21,12 @@ export const notesTable = sqliteTable("notes", {
     .notNull(),
 });
 
+export type OauthInfo = {
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: number;
+};
+
 export const usersTable = sqliteTable("users", {
   id: text()
     .primaryKey()
@@ -28,6 +34,8 @@ export const usersTable = sqliteTable("users", {
   email: text().notNull().unique(),
   createdAt: text().$default(() => new Date().toISOString()),
   password: text().notNull(),
+  oauthType: text().$type<"google" | "github">(),
+  oauthInfo: text(),
 });
 
 export const UserTableRelations = relations(usersTable, ({ many, one }) => {

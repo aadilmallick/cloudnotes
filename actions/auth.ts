@@ -39,6 +39,54 @@ export const getUserFromToken = async (token: {
   }
 };
 
+export const signinWithOAuth = async ({
+  email,
+  oauthType,
+}: {
+  email: string;
+  oauthType: "github" | "google";
+}) => {
+  const match = await db.query.users.findFirst({
+    where: eq(usersTable.email, email),
+  });
+  if (!match) {
+    // create user
+    const user = await db
+      .insert(usersTable)
+      .values({
+        email,
+        oauthType,
+        password: "NO_PASSWORD_SINCE_OAUTH",
+      })
+      .returning({
+        id: usersTable.id,
+        email: usersTable.email,
+        oauthType: usersTable.oauthType,
+      });
+    const theUser = user[0];
+    const token = createTokenForUser(theUser.id);
+    return { user: theUser, token };
+  }
+
+  if (!match?.oauthType) {
+    throw new Error("invalid user, already signed up with email");
+  }
+
+  if (match.oauthType !== oauthType) {
+    throw new Error("invalid user, already signed up with different oauth");
+  }
+
+  const token = createTokenForUser(match.id);
+  return {
+    user: {
+      id: match.id,
+      email: match.email,
+      oauthType: match.oauthType,
+    },
+    token,
+  };
+};
+
 export const signin = async ({
   email,
   password,
@@ -51,6 +99,10 @@ export const signin = async ({
   });
 
   if (!match) throw new Error("invalid user");
+
+  if (match.oauthType) {
+    throw new Error("invalid user, already signed up with oauth");
+  }
 
   const correctPW = await comparePW(password, match.password);
 
