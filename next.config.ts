@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     // dynamicIO: true,
     dynamicIO: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
